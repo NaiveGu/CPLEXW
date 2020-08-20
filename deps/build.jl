@@ -35,9 +35,11 @@ const wincpxvers = ["128", "1280", "129", "1290", "1210", "12100"]
         if haskey(ENV,env)
             for d in split(ENV[env],';')
                 occursin("cplex", d) || continue
-                push!(libnames,joinpath(d,"cplex$(v)00"))
-                push!(libnames,joinpath(d,"cplex$(v)0"))
-                push!(libnames,joinpath(d,"cplex$(v)"))
+                if v in ["128", "129", "1210"]
+                    push!(libnames,joinpath(d,"cplex$(v)0"))
+                else
+                    push!(libnames,joinpath(d,"cplex$(v)"))
+                end
             end
         end
     end
